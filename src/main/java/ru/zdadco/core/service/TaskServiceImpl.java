@@ -25,8 +25,10 @@ public class TaskServiceImpl implements TaskService {
         if (str.equals("n")) {
             System.out.print("Write your path, this: ");
             str = reader.reade();
-            path = Paths.get(str);
-            writer.setPath(path);
+            if (!str.equals("n")) {
+                path = Paths.get(str);
+                writer.setPath(path);
+            }
         }
     }
 

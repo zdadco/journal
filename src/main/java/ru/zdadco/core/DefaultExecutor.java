@@ -22,12 +22,19 @@ public class DefaultExecutor implements Executor {
         while (true){
             try {
                 String str = reader.reade();
-                if (str.equals(Commands.EXIT.getCommand())){
-                    service.exit();
-                } else if (str.equals(Commands.READ_ALL.getCommand())) {
-                   service.printAll();
-                } else {
-                    service.save(str);
+                switch (Command.of(str)){
+                    case EXIT:
+                        service.exit();
+                        break;
+                    case READ_ALL:
+                        service.printAll();
+                        break;
+                    case SET_PATH:
+                        service.askPathSave();
+                        break;
+                    case SAVE:
+                        service.save(str);
+                        break;
                 }
             } catch (IOException e) {
                 e.printStackTrace();

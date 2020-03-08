@@ -20,6 +20,7 @@ public class FileWriter implements Writer {
 
     @Override
     public void write(String str) throws IOException {
-        Files.write(path, (str + "\n").getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+        if (!str.equals(""))
+            Files.write(path, (str + "\n").getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
     }
 }
