@@ -2,40 +2,32 @@ package ru.zdadco.core;
 
 import ru.zdadco.core.reader.ConsoleReader;
 import ru.zdadco.core.reader.Reader;
-import ru.zdadco.core.writer.FileWriter;
-import ru.zdadco.core.writer.Writer;
+import ru.zdadco.core.service.TaskService;
+import ru.zdadco.core.service.TaskServiceImpl;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.List;
 
 public class DefaultExecutor implements Executor {
 
-    Path path = Paths.get("/home/zdadco/notes.txt");
 
     private Reader reader = new ConsoleReader();
-    private Writer writer = new FileWriter(path);
+    private TaskService service = new TaskServiceImpl();
 
     public DefaultExecutor() {
     }
 
     @Override
     public void run() {
+        service.askPathSave();
         while (true){
             try {
                 String str = reader.reade();
-                if (str.equals(Commands.EXIT.getCommand()))
-                    break;
-                else if (str.equals(Commands.READ_ALL.getCommand())) {
-                    List<String> lines = Files.readAllLines(path, StandardCharsets.UTF_8);
-                    for (String line : lines) {
-                        System.out.println(line);
-                    }
+                if (str.equals(Commands.EXIT.getCommand())){
+                    service.exit();
+                } else if (str.equals(Commands.READ_ALL.getCommand())) {
+                   service.printAll();
                 } else {
-                    writer.write(str);
+                    service.save(str);
                 }
             } catch (IOException e) {
                 e.printStackTrace();

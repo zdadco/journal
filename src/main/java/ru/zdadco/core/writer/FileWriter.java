@@ -14,6 +14,10 @@ public class FileWriter implements Writer {
         this.path = path;
     }
 
+    public void setPath(Path path) {
+        this.path = path;
+    }
+
     @Override
     public void write(String str) throws IOException {
         Files.write(path, (str + "\n").getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
