@@ -10,8 +10,8 @@ public class FileWriter implements Writer {
 
     private Path path;
 
-    public FileWriter(String path) {
-        this.path = Paths.get(path);
+    public FileWriter(Path path) {
+        this.path = path;
     }
 
     @Override
